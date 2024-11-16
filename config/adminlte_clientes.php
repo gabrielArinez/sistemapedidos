@@ -10,7 +10,7 @@ return [
         ],
         [
             'text' => 'Catálogo',
-            'url' => '/informacion',
+            'url' => '/catalogo',
             'icon' => 'fas fa-fw fa-list',
             'classes' => 'bg-secondary text-white',
         ],

@@ -1,5 +1,39 @@
 @inject('navbarItemHelper', 'JeroenNoten\LaravelAdminLte\Helpers\NavbarItemHelper')
 
+@if(Auth::guard('web')->check())
+    <!-- Menú para usuarios -->
+    <li class="nav-item dropdown">
+        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+            {{ Auth::guard('web')->user()->name }}
+        </a>
+        <div class="dropdown-menu dropdown-menu-right">
+            <a class="dropdown-item" href="{{ route('logout') }}"
+               onclick="event.preventDefault(); document.getElementById('logout-form-web').submit();">
+                Logout
+            </a>
+            <form id="logout-form-web" action="{{ route('logout') }}" method="POST" style="display: none;">
+                @csrf
+            </form>
+        </div>
+    </li>
+@elseif(Auth::guard('cliente')->check())
+    <!-- Menú para clientes -->
+    <li class="nav-item dropdown">
+        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+            {{ Auth::guard('cliente')->clientes()->nombre }}
+        </a>
+        <div class="dropdown-menu dropdown-menu-right">
+            <a class="dropdown-item" href="{{ route('cliente.logout') }}"
+               onclick="event.preventDefault(); document.getElementById('logout-form-cliente').submit();">
+                Logout
+            </a>
+            <form id="logout-form-cliente" action="{{ route('cliente.logout') }}" method="POST" style="display: none;">
+                @csrf
+            </form>
+        </div>
+    </li>
+@endif
+
 @if ($navbarItemHelper->isSearch($item))
 
     {{-- Search form --}}

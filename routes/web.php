@@ -29,13 +29,27 @@ Route::get('/administrador', [App\Http\Controllers\AdministradorController::clas
 Route::get('/crearProducto', [App\Http\Controllers\ProductoController::class, 'create'])->name('admin.productos.create');
 
 // ==================================================== Rutas para CLIENTE ====================================================
+// ---------------------------------- INFORMACIÓN ----------------------------------
 Route::get('/informacion', [App\Http\Controllers\ClienteController::class, 'info'])->name('client.info');
-// Rutas de autenticación para clientes
+
+// ---------------------------------- LOGIN - REGISTER ----------------------------------
 Route::get('cliente/login', [ClienteAuthController::class, 'showLogin'])->name('cliente.login');
 Route::post('cliente/login', [ClienteAuthController::class, 'login']);
 Route::get('cliente/register', [ClienteAuthController::class, 'showRegister'])->name('cliente.register');
 Route::post('cliente/register', [ClienteAuthController::class, 'register']);
 Route::post('cliente/logout', [ClienteAuthController::class, 'logout'])->name('cliente.logout');
+
+// ---------------------------------- CATÁLOGO ----------------------------------
+Route::get('/catalogo', [App\Http\Controllers\CatalogoController::class, 'index'])->name('client.catalogo.catalogo');
+Route::get('/categorias/{id}', [App\Http\Controllers\CatalogoController::class, 'productosPorCategoria'])->name('client.catalogo.productos_por_categoria');
+
+// ---------------------------------- CARRITO ----------------------------------
+Route::get('/carrito/add/{id}', [App\Http\Controllers\CarritoController::class, 'add'])->name('carrito.add');
+
+
+
+//Route::post('/logout', [UserController::class, 'logout'])->name('logout');
+//Route::post('/cliente/logout', [ClienteAuthController::class, 'logout'])->name('cliente.logout');
 
 
 

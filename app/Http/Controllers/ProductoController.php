@@ -13,6 +13,7 @@ class ProductoController extends Controller
      */
     public function index()
     {
+        // Vista productos administrador 
         $productos = Producto::all();
         return view('admin.productos.index', compact('productos'));
     }
