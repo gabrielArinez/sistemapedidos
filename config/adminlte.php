@@ -394,7 +394,7 @@ return [
             'icon' => 'fas fa-fw fa-users',
             'classes' => 'bg-secondary text-white',
         ],
-        [
+        /*[
             'text' => 'multilevel',
             'icon' => 'fas fa-fw fa-share',
             'submenu' => [
@@ -431,7 +431,7 @@ return [
                     'url' => '#',
                 ],
             ],
-        ],
+        ],*/
         /*['header' => 'labels'],
         [
             'text' => 'important',
