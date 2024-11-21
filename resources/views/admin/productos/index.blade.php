@@ -23,6 +23,7 @@
                             <thead class="thead-light">
                                 <tr>
                                     <th scope="col" class="text-center" style="min-width: 50px">ID</th>
+                                    <th scope="col" class="text-center" style="min-width: 100px">Imagen</th>
                                     <th scope="col" class="text-center" style="min-width: 150px">Producto</th>
                                     <th scope="col" class="text-center" style="min-width: 120px">Categoría</th>
                                     <th scope="col" class="text-center d-none d-md-table-cell">Promoción</th>
@@ -36,6 +37,15 @@
                                 @foreach ($productos as $producto)
                                     <tr>
                                         <td class="text-center">{{ $producto->id_producto }}</td>
+                                        <td class="text-center">
+                                            @if($producto->imagen)
+                                                <img src="{{ asset('storage/' . $producto->imagen) }}" 
+                                                     alt="{{ $producto->nombre }}" 
+                                                     style="max-width: 80px; max-height: 80px; object-fit: cover;">
+                                            @else
+                                                <span>Sin imagen</span>
+                                            @endif
+                                        </td>
                                         <td>{{ $producto->nombre }}</td>
                                         <td>{{ $producto->categoria_producto->categoria ?? 'N/A' }}</td>
                                         <td class="d-none d-md-table-cell">{{ $producto->promociones->nombre ?? 'N/A' }}</td>

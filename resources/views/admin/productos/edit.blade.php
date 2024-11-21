@@ -13,7 +13,7 @@
                     <h3 class="card-title">Modificar Producto</h3>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('admin.productos.update', $producto->id_producto) }}" method="POST">
+                    <form action="{{ route('admin.productos.update', $producto->id_producto) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
                         
@@ -118,20 +118,35 @@
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
                                 </div>
-                            </div>
-                            <!-- Imagen -->
+                            </div>                            
+                        </div>
+
+
+                        <!-- Imagen -->
+                        <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="imagen">Imagen del Producto</label>
-                                    <input type="file" class="form-control" id="imagen" name="imagen" accept="image/*">
+                                    <label for="imagen">Imagen del Producto (Opcional)</label>
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="imagen" name="imagen" accept="image/*">
+                                        <label class="custom-file-label" for="imagen">Seleccionar imagen</label>
+                                    </div>
+                                    <small class="form-text text-muted">Tamaño máximo: 2MB. Formatos: JPG, PNG, GIF</small>
                                     @error('imagen')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
                                 </div>
+                                <div id="preview-container" class="mt-2" style="{{ $producto->imagen ? 'display:block;' : 'display:none;' }}">
+                                    <label>Imagen actual:</label>
+                                    <img id="imagen-preview" 
+                                        src="{{ $producto->imagen ? asset('storage/' . $producto->imagen) : '#' }}" 
+                                        alt="{{ $producto->nombre }}" 
+                                        style="max-width: 200px; max-height: 200px;">
+                                </div>
                             </div>
-                            
                         </div>
 
+                        {{-- Botones --}}
                         <hr>
 
                         <div class="row">
@@ -157,5 +172,29 @@
 @stop
 
 @section('js')
-    <script> console.log("Hi, I'm using the Laravel-AdminLTE package!"); </script>
+<script>
+    // Nombre de archivo personalizado
+    $(".custom-file-input").on("change", function() {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+
+        // Vista previa de imagen
+        var input = this;
+        var previewContainer = $("#preview-container");
+        var previewImg = $("#imagen-preview");
+
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                previewImg.attr('src', e.target.result);
+                previewContainer.show();
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        } else {
+            previewContainer.hide();
+        }
+    });
+</script>
 @stop

@@ -13,7 +13,7 @@
                     <h3 class="card-title">Ingresar Datos</h3>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('admin.productos.store') }}" method="POST">
+                    <form action="{{ route('admin.productos.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
                             <!-- Nombre del Producto -->
@@ -119,6 +119,27 @@
                         </div>
 
 
+                        <!-- Imagen -->
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="imagen">Imagen del Producto (Opcional)</label>
+                                    <div class="custom-file">
+                                        <input type="file" class="custom-file-input" id="imagen" name="imagen" accept="image/*">
+                                        <label class="custom-file-label" for="imagen">Seleccionar imagen</label>
+                                    </div>
+                                    <small class="form-text text-muted">Tamaño máximo: 2MB. Formatos: JPG, PNG, GIF</small>
+                                    @error('imagen')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
+                                </div>
+                                <div id="preview-container" class="mt-2" style="display:none;">
+                                    <img id="imagen-preview" src="#" alt="Vista previa de imagen" style="max-width: 200px; max-height: 200px;">
+                                </div>
+                            </div>
+                        </div>
+
+                        {{-- Botones --}}
                         <hr>
                         <div class="row">
                             <div class="col-md-12">
@@ -142,5 +163,29 @@
 @stop
 
 @section('js')
-    <script> console.log("Hi, I'm using the Laravel-AdminLTE package!"); </script>
+<script>
+    // Nombre de archivo personalizado
+    $(".custom-file-input").on("change", function() {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+
+        // Vista previa de imagen
+        var input = this;
+        var previewContainer = $("#preview-container");
+        var previewImg = $("#imagen-preview");
+
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                previewImg.attr('src', e.target.result);
+                previewContainer.show();
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        } else {
+            previewContainer.hide();
+        }
+    });
+</script>
 @stop

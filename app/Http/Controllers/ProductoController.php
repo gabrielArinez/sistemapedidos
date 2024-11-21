@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Producto;
 use App\Models\Categoria;
 use App\Models\Promocion;
@@ -48,7 +49,7 @@ class ProductoController extends Controller
             'disponible' => 'required|boolean',
             'id_promocion' => 'nullable|exists:promociones,id_promocion',
             'descripcion' => 'nullable|string',
-            'imagen' => 'nullable|image|max:2048',
+            'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
         // CREAR 
         $producto = new Producto();
@@ -59,7 +60,15 @@ class ProductoController extends Controller
         $producto->stock = $request->stock;
         $producto->disponible = $request->disponible;
         $producto->descripcion = $request->descripcion;
-        $producto->imagen = $request->imagen;
+
+        // Manejo de imagen
+        if ($request->hasFile('imagen')) {
+            $imagen = $request->file('imagen');
+            $nombreImagen = time() . '_' . $imagen->getClientOriginalName();
+            $rutaImagen = $imagen->storeAs('productos', $nombreImagen, 'public');
+            $producto->imagen = $rutaImagen;
+        }
+
         // GUARDAR
         $producto->save();
         // MENSAJE 
@@ -106,7 +115,7 @@ class ProductoController extends Controller
             'disponible' => 'required|boolean',
             'id_promocion' => 'nullable|exists:promociones,id_promocion',
             'descripcion' => 'nullable|string',
-            'imagen' => 'nullable|image|max:2048',
+            'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
         // BUSQUEDA
         $producto = Producto::find($id);
@@ -118,7 +127,21 @@ class ProductoController extends Controller
         $producto->stock = $request->stock;
         $producto->disponible = $request->disponible;
         $producto->descripcion = $request->descripcion;
-        $producto->imagen = $request->imagen;
+
+        // Manejo de imagen
+        if ($request->hasFile('imagen')) {
+            // Eliminar imagen anterior si existe
+            if ($producto->imagen) {
+                Storage::disk('public')->delete($producto->imagen);
+            }
+
+            // Guardar nueva imagen
+            $imagen = $request->file('imagen');
+            $nombreImagen = time() . '_' . $imagen->getClientOriginalName();
+            $rutaImagen = $imagen->storeAs('productos', $nombreImagen, 'public');
+            $producto->imagen = $rutaImagen;
+        }
+
         // GUARDAR
         $producto->save();
         // MENSAJE
