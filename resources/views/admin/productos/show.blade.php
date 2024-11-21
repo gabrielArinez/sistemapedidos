@@ -68,8 +68,25 @@
                     </div>
 
                     <div class="row">
+                        <!-- Imagen -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Imagen</label>
+                                <div class="mt-2">
+                                    @if($producto->imagen)
+                                        <img src="{{ asset('storage/' . $producto->imagen) }}" 
+                                             alt="{{ $producto->nombre }}" 
+                                             class="img-fluid" 
+                                             style="max-width: 150px; max-height: 150px; object-fit: contain;">
+                                    @else
+                                        <p class="text-muted">No hay imagen disponible</p>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
+
                         <!-- Descripción -->
-                        <div class="col-md-12">
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label for="descripcion">Descripción</label>
                                 <input type="text" class="form-control" value="{{$producto->descripcion}}" name="descripcion" readonly>

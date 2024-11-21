@@ -106,35 +106,31 @@
                         </div>
 
                         <div class="row">
-                            <!-- Descripción -->
-                            <div class="col-md-12">
+                        <!-- Imagen -->
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label for="imagen">Imagen</label>
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="imagen" name="imagen" accept="image/*">
+                                    <label class="custom-file-label" for="imagen">Seleccionar imagen</label>
+                                </div>
+                                @error('imagen')
+                                    <small class="text-danger">{{ $message }}</small>
+                                @enderror
+                            </div>
+                            <div id="preview-container" class="mt-2" style="display:none;">
+                                <img id="imagen-preview" src="#" alt="Vista previa de imagen" style="max-width: 150px; max-height: 150px;">
+                            </div>
+                        </div>
+
+                        <!-- Descripción -->
+                        <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="descripcion">Descripción</label>
                                     <textarea class="form-control" id="descripcion" name="descripcion" rows="2">{{ old('descripcion') }}</textarea>
                                     @error('descripcion')
                                         <small class="text-danger">{{ $message }}</small>
                                     @enderror
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <!-- Imagen -->
-                        <div class="row">
-                            <div class="col-md-12">
-                                <div class="form-group">
-                                    <label for="imagen">Imagen del Producto (Opcional)</label>
-                                    <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="imagen" name="imagen" accept="image/*">
-                                        <label class="custom-file-label" for="imagen">Seleccionar imagen</label>
-                                    </div>
-                                    <small class="form-text text-muted">Tamaño máximo: 2MB. Formatos: JPG, PNG, GIF</small>
-                                    @error('imagen')
-                                        <small class="text-danger">{{ $message }}</small>
-                                    @enderror
-                                </div>
-                                <div id="preview-container" class="mt-2" style="display:none;">
-                                    <img id="imagen-preview" src="#" alt="Vista previa de imagen" style="max-width: 200px; max-height: 200px;">
                                 </div>
                             </div>
                         </div>

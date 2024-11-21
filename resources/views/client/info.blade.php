@@ -69,6 +69,7 @@
                             <li class="list-group-item"><i class="fas fa-check text-success mr-2"></i>Panes de granja</li>
                             <li class="list-group-item"><i class="fas fa-check text-success mr-2"></i>Panes integrales</li>
                             <li class="list-group-item"><i class="fas fa-check text-success mr-2"></i>Bollería artesanal</li>
+                            <li class="list-group-item"><i class="fas fa-check text-success mr-2"></i>Galletas</li>
                         </ul>
                     </div>
                 </div>
