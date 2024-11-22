@@ -1,14 +1,11 @@
 @extends('adminlte::page')
-
 @section('title', 'Panel Administrador - Au Bon Pain')
+<!-- Barra superior -->
+@include('client.partials.navbar')  
 
 @section('content_header')
+
 <div class="container-fluid">
-    <div class="col-sm-12">
-        <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="{{ url('cliente/login') }}">Iniciar Sesión</a></li>
-        </ol>
-    </div>
     <div class="row mb-4">
 
         <div class="col-12 text-center mb-4">

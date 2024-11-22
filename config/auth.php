@@ -5,7 +5,7 @@ return [
     /*
     |--------------------------------------------------------------------------
     | Authentication Defaults
-    |--------------------------------------------------------------------------
+    |--------------------------------------------------------------------------     
     |
     | This option controls the default authentication "guard" and password
     | reset options for your application. You may change these defaults
@@ -43,6 +43,17 @@ return [
         'cliente' => [
             'driver' => 'session',
             'provider' => 'clientes',
+        ],
+    ],
+
+    'providers' => [
+        'users' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\User::class,
+        ],
+        'clientes' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Cliente::class,
         ],
     ],
 

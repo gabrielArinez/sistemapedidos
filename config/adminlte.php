@@ -69,6 +69,7 @@ return [
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
     'logo_img_alt' => 'Logo',
+    'brand_url' => 'javascript:void(0)',
 
     /*
     |--------------------------------------------------------------------------
@@ -133,7 +134,7 @@ return [
     |
     */
 
-    'usermenu_enabled' => true,
+    'usermenu_enabled' => false,
     'usermenu_header' => true,
     'usermenu_header_class' => 'bg-primary',
     'usermenu_image' => false,
@@ -152,10 +153,10 @@ return [
     |
     */
 
-    'layout_topnav' => null,
+    'layout_topnav' => false,
     'layout_boxed' => null,
-    'layout_fixed_sidebar' => null,
-    'layout_fixed_navbar' => null,
+    'layout_fixed_sidebar' => true,
+    'layout_fixed_navbar' => false,
     'layout_fixed_footer' => null,
     'layout_dark_mode' => null,
 
@@ -206,7 +207,7 @@ return [
     /**/
     'classes_sidebar_nav' => '',
     /**/
-    'classes_topnav' => 'navbar-white navbar-light',
+    'classes_topnav' => 'd-none',
     'classes_topnav_nav' => 'navbar-expand',
     'classes_topnav_container' => 'container',
 
@@ -265,7 +266,7 @@ return [
     */
 
     'use_route_url' => false,
-    'dashboard_url' => 'home',
+    'dashboard_url' => null,
     'logout_url' => 'logout',
     'login_url' => 'login',
     'register_url' => 'register',
@@ -313,10 +314,10 @@ return [
             'text' => 'search',
             'topnav_right' => true,
         ],*/
-        [
+        /*[
             'type' => 'fullscreen-widget',
             'topnav_right' => true,
-        ],
+        ],*/
 
         // Sidebar items:
         /*[

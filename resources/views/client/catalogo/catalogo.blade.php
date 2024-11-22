@@ -1,6 +1,7 @@
 @extends('adminlte::page')
-
 @section('title', 'Catálogo - Au Bon Pain')
+<!-- Barra superior -->
+@include('client.partials.navbar')
 
 @section('content_header')
     <h1 class="text-center mb-4">Nuestros Productos</h1>

@@ -33,11 +33,15 @@ Route::get('/crearProducto', [App\Http\Controllers\ProductoController::class, 'c
 Route::get('/informacion', [App\Http\Controllers\ClienteController::class, 'info'])->name('client.info');
 
 // ---------------------------------- LOGIN - REGISTER ----------------------------------
+// ---------------------------------- LOGIN - REGISTER ----------------------------------
 Route::get('cliente/login', [ClienteAuthController::class, 'showLogin'])->name('cliente.login');
 Route::post('cliente/login', [ClienteAuthController::class, 'login']);
 Route::get('cliente/register', [ClienteAuthController::class, 'showRegister'])->name('cliente.register');
 Route::post('cliente/register', [ClienteAuthController::class, 'register']);
 Route::post('cliente/logout', [ClienteAuthController::class, 'logout'])->name('cliente.logout');
+
+
+
 
 // ---------------------------------- CATÁLOGO ----------------------------------
 Route::get('/catalogo', [App\Http\Controllers\CatalogoController::class, 'index'])->name('client.catalogo.catalogo');
