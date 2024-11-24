@@ -16,8 +16,14 @@ return [
         ],
         [
             'text' => 'Compras',
-            'url' => '/informacion',
+            'url' => '/detalle_pedido',
             'icon' => 'fas fa-fw fa-shopping-cart',
+            'classes' => 'bg-secondary text-white',
+        ],
+        [
+            'text' => 'Pedidos',
+            'url' => '/pedido',
+            'icon' => 'fas fa-shopping-basket',
             'classes' => 'bg-secondary text-white',
         ],
     ]

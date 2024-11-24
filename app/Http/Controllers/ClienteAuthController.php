@@ -23,7 +23,7 @@ class ClienteAuthController extends Controller
         ]);
 
         if (Auth::guard('cliente')->attempt($credentials)) {
-            return redirect()->intended('informacion');
+            return redirect()->intended('catalogo');
         }
 
         return back()->withErrors(['email' => 'Las credenciales no coinciden']);
@@ -56,6 +56,6 @@ class ClienteAuthController extends Controller
     public function logout()
     {
         Auth::guard('cliente')->logout();
-        return redirect()->route('cliente.login');
+        return redirect()->intended('catalogo');
     }
 }

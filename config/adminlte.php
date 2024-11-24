@@ -266,7 +266,7 @@ return [
     */
 
     'use_route_url' => false,
-    'dashboard_url' => null,
+    'dashboard_url' => 'informacion',
     'logout_url' => 'logout',
     'login_url' => 'login',
     'register_url' => 'register',

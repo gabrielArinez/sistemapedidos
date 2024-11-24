@@ -45,17 +45,20 @@ Route::post('cliente/logout', [ClienteAuthController::class, 'logout'])->name('c
 
 // ---------------------------------- CATÁLOGO ----------------------------------
 Route::get('/catalogo', [App\Http\Controllers\CatalogoController::class, 'index'])->name('client.catalogo.catalogo');
-Route::get('/categorias/{id}', [App\Http\Controllers\CatalogoController::class, 'productosPorCategoria'])->name('client.catalogo.productos_por_categoria');
 
-// ---------------------------------- CARRITO ----------------------------------
-Route::get('/carrito/add/{id}', [App\Http\Controllers\CarritoController::class, 'add'])->name('carrito.add');
+// ---------------------------------- DETALLE PEDIDO ----------------------------------
+Route::get('/detalle_pedido', [App\Http\Controllers\DetallePedidoController::class, 'index'])->name('pedido.detalle_pedido');
+Route::post('/agregar-al-carrito', [App\Http\Controllers\DetallePedidoController::class, 'agregarAlCarrito'])->name('agregar.carrito');
+Route::get('/carrito', [App\Http\Controllers\DetallePedidoController::class, 'verCarrito'])->name('ver.carrito');
 
+// ---------------------------------- PEDIDO ----------------------------------
+Route::get('/pedido', [App\Http\Controllers\PedidoController::class, 'index'])->name('pedido.pedido');
+Route::post('/finalizar-pedido', [App\Http\Controllers\PedidoController::class, 'finalizarPedido'])->name('finalizar.pedido');
+Route::get('/mis-pedidos', [App\Http\Controllers\PedidoController::class, 'misPedidos'])->name('mis.pedidos');
 
 
 //Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 //Route::post('/cliente/logout', [ClienteAuthController::class, 'logout'])->name('cliente.logout');
-
-
 
 
 

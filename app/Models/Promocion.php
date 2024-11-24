@@ -10,4 +10,10 @@ class Promocion extends Model
     use HasFactory;
     protected $table = 'promociones';
     protected $primaryKey = 'id_promocion';
+
+    protected $fillable = [
+        'nombre',
+        'descuento',
+        'descripcion'
+    ];
 }

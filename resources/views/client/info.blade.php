@@ -1,5 +1,5 @@
 @extends('adminlte::page')
-@section('title', 'Panel Administrador - Au Bon Pain')
+@section('title', 'Información - Au Bon Pain')
 <!-- Barra superior -->
 @include('client.partials.navbar')  
 
