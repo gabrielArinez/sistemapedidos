@@ -22,14 +22,7 @@
                                 <small class="text-muted">{{ Auth::guard('cliente')->user()->email }}</small>
                             </div>
                         </div>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">
-                            <i class="fas fa-user-edit fa-fw mr-2"></i>Mi Perfil
-                        </a>
-                        <a class="dropdown-item" href="#">
-                            <i class="fas fa-shopping-bag fa-fw mr-2"></i>Mis Pedidos
-                        </a>
-                        <div class="dropdown-divider"></div>
+
                         <a class="dropdown-item" href="{{ route('cliente.logout') }}"
                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             <i class="fas fa-sign-out-alt fa-fw mr-2"></i>Cerrar Sesión

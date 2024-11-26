@@ -19,4 +19,15 @@ class DetallePedido extends Model
         'precio_unitario',
         'subtotal'
     ];
+    // Relación con Producto
+    public function producto()
+    {
+        return $this->belongsTo(Producto::class, 'id_producto', 'id_producto');
+    }
+
+    // Relación con Pedido
+    public function pedido()
+    {
+        return $this->belongsTo(Pedido::class, 'id_pedido', 'id_pedido');
+    }
 }

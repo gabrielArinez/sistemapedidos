@@ -11,4 +11,8 @@ class Prioridad extends Model
     protected $table = 'prioridades';
     protected $primaryKey = 'id_prioridad';
     protected $fillable = ['prioridad'];
+    public function pedidos()
+    {
+        return $this->hasMany(Pedido::class, 'id_prioridad', 'id_prioridad');
+    }
 }

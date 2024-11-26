@@ -97,7 +97,7 @@
                                 </div>
                                 <form>
                                     @csrf
-                                    <input type="hidden" name="id_producto" value="{{ $producto->id_producto }}" required>
+
                                     <button class="btn btn-primary btn-block {{ $producto->stock == 0 ? 'disabled' : '' }}"
                                             {{ $producto->stock == 0 ? 'disabled' : '' }}>
                                         <i class="fas fa-shopping-cart mr-2"></i>
@@ -288,6 +288,7 @@
 @stop
 
 @section('js')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.all.min.js"></script>
 <script>
 $(document).ready(function() {
     // Búsqueda en tiempo real
@@ -385,6 +386,117 @@ $('.product-details-trigger').click(function() {
             input.val(currentValue - 1);
         }
     });
+
+// Manejador para agregar al carrito desde el modal
+$('#modalAddToCart').click(function(e) {
+        e.preventDefault();
+        
+        const id_producto = $('#modalProductId').val();
+        const cantidad = $('#modalQuantity').val();
+
+        $.ajax({
+            url: '{{ route("carrito.agregar") }}',
+            method: 'POST',
+            data: {
+                _token: '{{ csrf_token() }}',
+                id_producto: id_producto,
+                cantidad: cantidad
+            },
+            success: function(response) {
+                if(response.success) {
+                    // Cerrar el modal
+                    $('#productModal').modal('hide');
+                    
+                    // Mostrar mensaje de éxito
+                    Swal.fire({
+                        title: '¡Producto agregado!',
+                        text: 'El producto se agregó correctamente al carrito',
+                        icon: 'success',
+                        showConfirmButton: false,
+                        timer: 1000
+                    });
+                }
+            },
+            error: function(xhr) {
+                // Manejar errores
+                let errorMessage = 'Ocurrió un error al agregar el producto';
+                
+                if (xhr.status === 401) {
+                    errorMessage = 'Debe iniciar sesión para agregar productos al carrito';
+                }
+                
+                Swal.fire({
+                    title: 'Error',
+                    text: errorMessage,
+                    icon: 'error',
+                    confirmButtonText: 'Ok'
+                });
+
+                if (xhr.status === 401) {
+                    // Redirigir al login después de un breve delay
+                    setTimeout(() => {
+                        window.location.href = '{{ route("cliente.login") }}';
+                    }, 2000);
+                }
+            }
+        });
+    });
+
+    // Validación de cantidad
+    $('#modalQuantity').on('change keyup', function() {
+        let value = parseInt($(this).val());
+        
+        // Asegurar que el valor esté entre 1 y 50
+        if (isNaN(value) || value < 1) {
+            $(this).val(1);
+        } else if (value > 50) {
+            $(this).val(50);
+        }
+    });
+
+    // Prevenir envío del formulario en las tarjetas de producto
+    $('.product-card form').on('submit', function(e) {
+        e.preventDefault();
+        
+        const id_producto = $(this).find('input[name="id_producto"]').val();
+        
+        $.ajax({
+            url: '{{ route("carrito.agregar") }}',
+            method: 'POST',
+            data: {
+                _token: '{{ csrf_token() }}',
+                id_producto: id_producto,
+                cantidad: 1
+            },
+            success: function(response) {
+                if(response.success) {
+                    Swal.fire({
+                        title: '¡Producto agregado!',
+                        text: 'El producto se agregó correctamente al carrito',
+                        icon: 'success',
+                        showConfirmButton: false,
+                        timer: 1200
+                    });
+                }
+            },
+            error: function(xhr) {
+                let errorMessage = 'Ocurrió un error al agregar el producto';
+                
+                if (xhr.status === 401) {
+                    errorMessage = 'Debe iniciar sesión para agregar productos al carrito';
+                }
+                
+
+
+                if (xhr.status === 401) {
+                    setTimeout(() => {
+                        window.location.href = '{{ route("cliente.login") }}';
+                    }, 2000);
+                }
+            }
+        });
+    });
+
 });
 
 </script>

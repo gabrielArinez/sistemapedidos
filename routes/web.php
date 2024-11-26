@@ -47,14 +47,25 @@ Route::post('cliente/logout', [ClienteAuthController::class, 'logout'])->name('c
 Route::get('/catalogo', [App\Http\Controllers\CatalogoController::class, 'index'])->name('client.catalogo.catalogo');
 
 // ---------------------------------- DETALLE PEDIDO ----------------------------------
+// ----------- INDEX -----------
 Route::get('/detalle_pedido', [App\Http\Controllers\DetallePedidoController::class, 'index'])->name('pedido.detalle_pedido');
-Route::post('/agregar-al-carrito', [App\Http\Controllers\DetallePedidoController::class, 'agregarAlCarrito'])->name('agregar.carrito');
-Route::get('/carrito', [App\Http\Controllers\DetallePedidoController::class, 'verCarrito'])->name('ver.carrito');
+// ----------- CREATE -----------
+Route::post('/agregar-al-carrito', [App\Http\Controllers\DetallePedidoController::class, 'agregarAlCarrito'])->name('carrito.agregar');
+// ----------- ELIMINAR DATOS -----------
+Route::delete('/eliminar-del-carrito/{id}', [App\Http\Controllers\DetallePedidoController::class, 'eliminarDelCarrito'])->name('carrito.eliminar');
+// ----------- EDITAR DATOS -----------
+Route::post('/actualizar-cantidad', [App\Http\Controllers\DetallePedidoController::class, 'actualizarCantidad'])->name('carrito.actualizar');
+
+
+
 
 // ---------------------------------- PEDIDO ----------------------------------
+// ----------- INDEX -----------
 Route::get('/pedido', [App\Http\Controllers\PedidoController::class, 'index'])->name('pedido.pedido');
-Route::post('/finalizar-pedido', [App\Http\Controllers\PedidoController::class, 'finalizarPedido'])->name('finalizar.pedido');
-Route::get('/mis-pedidos', [App\Http\Controllers\PedidoController::class, 'misPedidos'])->name('mis.pedidos');
+// ----------- CREATE -----------
+Route::post('/finalizar-pedido', [App\Http\Controllers\PedidoController::class, 'finalizarPedido'])->name('pedido.finalizar');
+
+
 
 
 //Route::post('/logout', [UserController::class, 'logout'])->name('logout');
