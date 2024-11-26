@@ -20,6 +20,7 @@
                                 <i class="fas fa-user-circle fa-3x mb-2"></i>
                                 <strong>{{ Auth::guard('cliente')->user()->nombre }} {{ Auth::guard('cliente')->user()->apellido }}</strong>
                                 <small class="text-muted">{{ Auth::guard('cliente')->user()->email }}</small>
+                                <small class="text">Cliente</small>
                             </div>
                         </div>
 

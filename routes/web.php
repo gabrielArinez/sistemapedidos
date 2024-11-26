@@ -56,9 +56,6 @@ Route::delete('/eliminar-del-carrito/{id}', [App\Http\Controllers\DetallePedidoC
 // ----------- EDITAR DATOS -----------
 Route::post('/actualizar-cantidad', [App\Http\Controllers\DetallePedidoController::class, 'actualizarCantidad'])->name('carrito.actualizar');
 
-
-
-
 // ---------------------------------- PEDIDO ----------------------------------
 // ----------- INDEX -----------
 Route::get('/pedido', [App\Http\Controllers\PedidoController::class, 'index'])->name('pedido.pedido');

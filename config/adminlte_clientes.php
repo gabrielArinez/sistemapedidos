@@ -11,7 +11,7 @@ return [
         [
             'text' => 'Catálogo',
             'url' => '/catalogo',
-            'icon' => 'fas fa-fw fa-list',
+            'icon' => 'fas fa-shopping-bag mr-2',
             'classes' => 'bg-secondary text-white',
         ],
         [

@@ -9,11 +9,21 @@ use Illuminate\Http\Request;
 
 class DetallePedidoController extends Controller
 {
+    public function __construct()
+    {
+        // Middleware para requerir autenticación de clientes
+        $this->middleware('auth:cliente')->except(['index']);
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
+        // Verificar si el cliente está autenticado
+        if (!auth()->guard('cliente')->check()) {
+            // Redirigir al formulario de inicio de sesión de clientes
+            return redirect()->route('cliente.login');
+        }
         // Obtener el menu del cliente  
         $menuConfig = config('adminlte_clientes.menu');
         config(['adminlte.menu' => $menuConfig]);

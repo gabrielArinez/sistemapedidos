@@ -12,8 +12,18 @@ use Illuminate\Support\Facades\Log;
 
 class PedidoController extends Controller
 {
+    public function __construct()
+    {
+        // Middleware para requerir autenticación de clientes
+        $this->middleware('auth:cliente')->except(['index']);
+    }
     public function index()
     {
+        // Verificar si el cliente está autenticado
+        if (!auth()->guard('cliente')->check()) {
+            // Redirigir al formulario de inicio de sesión de clientes
+            return redirect()->route('cliente.login');
+        }
         // Configurar menú
         $menuConfig = config('adminlte_clientes.menu');
         config(['adminlte.menu' => $menuConfig]);
@@ -22,13 +32,25 @@ class PedidoController extends Controller
         $pedidos = Pedido::where('id_cliente', Auth::guard('cliente')->id())
             ->orderBy('fecha_pedido', 'desc')
             ->with(['estado', 'detalles.producto'])
-            ->get();
+            ->paginate(10);
 
+        // Calcular el subtotal de cada detalle de los pedidos
+        foreach ($pedidos as $pedido) {
+            foreach ($pedido->detalles as $detalle) {
+                $descuento = $detalle->producto->promociones ? $detalle->producto->promociones->descuento : 0;
+                $precioConDescuento = $detalle->precio_unitario * (1 - $descuento / 100);
+                $detalle->subtotal = $precioConDescuento * $detalle->cantidad;
+            }
+        }
         return view('pedido.pedido', compact('pedidos'));
     }
 
     public function finalizarPedido(Request $request)
     {
+        $request->validate([
+            'fecha_entrega' => 'required|date|after_or_equal:today',
+            'hora_entrega' => 'required|date_format:H:i',
+        ]);
         // Verificar autenticación
         if (!Auth::guard('cliente')->check()) {
             return redirect()->route('cliente.login')
@@ -56,7 +78,7 @@ class PedidoController extends Controller
             $pedido->fecha_pedido = now();
             $pedido->total = 0;
             $pedido->fecha_entrega = $request->fecha_entrega;
-            $pedido->hora_entrega = $request->fecha_entrega;
+            $pedido->hora_entrega = $request->hora_entrega;
 
             // Guardar el pedido
             $pedido->save();
@@ -87,7 +109,7 @@ class PedidoController extends Controller
                 $detallePedido->id_producto = $id_producto;
                 $detallePedido->cantidad = $item['cantidad'];
                 $detallePedido->precio_unitario = $item['precio_unitario'];
-                $detallePedido->subtotal = $item['cantidad'] * $item['precio_unitario'];
+                $detallePedido->subtotal = $subtotal;
 
                 // Guardar el detalle
                 $detallePedido->save();

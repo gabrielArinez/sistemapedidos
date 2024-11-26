@@ -7,6 +7,7 @@
 
 @section('content')
 <div class="container-fluid">
+    <br>
     <!-- Filtros y búsqueda -->
     <div class="row mb-4">
         <div class="col-md-12">
